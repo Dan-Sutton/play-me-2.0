@@ -1,6 +1,17 @@
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../utils/firebase";
 import React from "react";
 
 function Login(props) {
+  const googleProvider = new GoogleAuthProvider();
+  const GoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h1 id="playme-title">Play Me!</h1>
@@ -34,9 +45,9 @@ function Login(props) {
       </form>
 
       <div class="login">
-        <a href="login.html" id="artist-login">
+        <button id="artist-login" onClick={GoogleLogin}>
           ARTIST LOGIN
-        </a>
+        </button>
         <a href="">Create New Account</a>
       </div>
     </div>
