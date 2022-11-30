@@ -1,12 +1,15 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import React from "react";
+import { useRouter } from "next/router";
 
 function Login(props) {
+  const route = useRouter();
   const googleProvider = new GoogleAuthProvider();
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      route.push("/artistPage");
     } catch (error) {
       console.log(error);
     }
