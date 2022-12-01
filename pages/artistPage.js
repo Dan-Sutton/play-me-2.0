@@ -10,7 +10,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../utils/firebase";
-import { async } from "@firebase/util";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
@@ -58,23 +57,26 @@ function ArtistPage(props) {
 
   //?Calling GET on User authentication
 
-  useEffect(() => {
-    setNewReqCode(...reqCode);
-    console.log(...reqCode);
-  }, [reqCode]);
-
+  //Get Req
   useEffect(() => {
     handleReqCode();
     getRequests();
   }, [user]);
 
+  //Destructure reqCode
+  useEffect(() => {
+    setNewReqCode(...reqCode);
+  }, [reqCode]);
+
+  //
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
-  if (!user || !reqCode) route.push("/auth/login");
+  if (!user) route.push("/auth/login");
+
   if (user && !loading && newReqCode) {
-    console.log(newReqCode.reqCode);
     //! Alert to set up Code
     // setTimeout(function () {
     //   if (reqCode.length === 0) {
