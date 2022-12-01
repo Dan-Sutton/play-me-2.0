@@ -14,7 +14,7 @@ function ArtistPage(props) {
   useEffect(() => {
     const getRequests = async () => {
       const data = await getDocs(requestsCollectionRef);
-      console.log(data);
+      setRequests(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     getRequests();
@@ -48,7 +48,14 @@ function ArtistPage(props) {
         <div id="delete-all-btn">
           <button id="delete-all">DELETE ALL</button>
         </div>
-
+        {requests.map((request) => {
+          return (
+            <div>
+              <h1>{request.title}</h1>
+              <h1>{request.artist}</h1>
+            </div>
+          );
+        })}
         <button
           onClick={() => {
             auth.signOut();
