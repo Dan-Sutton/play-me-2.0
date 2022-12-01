@@ -2,15 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import {
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 function ArtistPage(props) {
@@ -27,7 +19,8 @@ function ArtistPage(props) {
   //CREATE doc with reqCode field
   const handleReqCode = async () => {
     if (user) {
-      const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
+      //   const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
+      const q = query(reqCodeCollectionRef, where("userId", "==", 3674928));
       const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
         setReqCode(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       });
@@ -59,7 +52,16 @@ function ArtistPage(props) {
   }
 
   if (!user || !reqCode) route.push("/auth/login");
-  if (user) {
+  if (user && !loading) {
+    setTimeout(function () {
+      if (reqCode.length === 0) {
+        const newReqCode = prompt("You need to set up a Request Code!");
+        if (newReqCode != null) {
+          console.log(newReqCode);
+        }
+      }
+    }, 1000);
+
     return (
       <div>
         <div id="artist-head">
