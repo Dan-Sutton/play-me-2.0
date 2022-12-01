@@ -42,20 +42,23 @@ function ArtistPage(props) {
               <th>User</th>
               <th>Delete</th>
             </tr>
+            {requests.map((request) => {
+              return (
+                <tr>
+                  <th>{request.title}</th>
+                  <th>{request.artist}</th>
+                  <th>{request.user}</th>
+                  <th>❌</th>
+                </tr>
+              );
+            })}
           </table>
         </div>
 
         <div id="delete-all-btn">
           <button id="delete-all">DELETE ALL</button>
         </div>
-        {requests.map((request) => {
-          return (
-            <div>
-              <h1>{request.title}</h1>
-              <h1>{request.artist}</h1>
-            </div>
-          );
-        })}
+
         <button
           onClick={() => {
             auth.signOut();
