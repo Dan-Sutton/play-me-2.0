@@ -16,12 +16,22 @@ import { db } from "../utils/firebase";
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
   const [requests, setRequests] = useState([]);
+  const [reqCode, setReqCode] = useState([]);
+
   const requestsCollectionRef = collection(db, "requests");
+  const reqCodeCollectionRef = collection(db, "reqCodes");
   const route = useRouter();
 
   //!Fetches COLLECTION matching user's uid
   //if no collection found, then notification to add REQUEST CODE
   //CREATE doc with reqCode field
+  const handleReqCode = async () => {
+    const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
+    const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
+      setReqCode(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return onSnapShotUpdate;
+  };
 
   //!Fetches all requests
   //Need to update - Only fetch where Request's reqCode, matches user's reqCode
@@ -29,13 +39,16 @@ function ArtistPage(props) {
     const q = query(requestsCollectionRef, where("reqCode", "==", 12345678));
 
     const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
-      setRequests(snapShot.docs.map((doc) => ({ ...doc.data() })));
+      setRequests(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
 
     return onSnapShotUpdate;
   };
 
+  //?Calling GET on User authentication
+
   useEffect(() => {
+    handleReqCode();
     getRequests();
   }, [user]);
 
@@ -49,7 +62,10 @@ function ArtistPage(props) {
       <div>
         <div id="artist-head">
           <h1>{`Welcome back ${user.displayName}`}</h1>
-          <p id="request-code">REQUEST CODE: 1234</p>
+          {reqCode.map((i) => (
+            <p id="request-code">{`REQUEST CODE: ${i.reqCode}`}</p>
+          ))}
+
           <img src={user.photoURL} referrerPolicy="no-referrer"></img>
         </div>
 
