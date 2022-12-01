@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../utils/firebase";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
+  const [requests, setRequests] = useState([]);
+  const requestsCollectionRef = collection(db, "requests");
   const route = useRouter();
+
+  useEffect(() => {
+    const getRequests = async () => {
+      const data = await getDocs(requestsCollectionRef);
+      console.log(data);
+    };
+
+    getRequests();
+  }, [user]);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -22,12 +35,14 @@ function ArtistPage(props) {
         </div>
 
         <div id="table">
-          <tr>
-            <th>Song Title</th>
-            <th>Artist Name</th>
-            <th>User</th>
-            <th>Delete</th>
-          </tr>
+          <table>
+            <tr>
+              <th>Song Title</th>
+              <th>Artist Name</th>
+              <th>User</th>
+              <th>Delete</th>
+            </tr>
+          </table>
         </div>
 
         <div id="delete-all-btn">
