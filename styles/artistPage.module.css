@@ -1,0 +1,61 @@
+.artistPage {
+  background-color: var(--background-color);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artistHead {
+  display: grid;
+  justify-items: center;
+}
+
+.requestCode {
+  color: var(--white);
+  font-size: auto;
+}
+
+#request-code {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  color: var(--white);
+}
+
+.table {
+  display: grid;
+  justify-items: center;
+  width: 100vw;
+}
+
+.tableHeader {
+  text-align: center;
+  color: var(--background-color);
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  background-color: var(--pink);
+  font-size: auto;
+  border: 5px solid var(--background-color);
+}
+
+.tableBody {
+  text-align: center;
+  color: var(--background-color);
+  font-family: "Poppins", sans-serif;
+  background-color: var(--white);
+  font-size: auto;
+  border: 5px solid var(--background-color);
+}
+
+.deleteAllButton {
+  background-color: var(--red);
+  border: none;
+  margin-top: 20%;
+  padding: 2%;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2vh;
+}

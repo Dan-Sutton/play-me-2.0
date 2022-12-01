@@ -5,11 +5,14 @@ import { useRouter } from "next/router";
 import {
   addDoc,
   collection,
+  deleteDoc,
   onSnapshot,
   query,
   where,
+  doc,
 } from "firebase/firestore";
 import { db } from "../utils/firebase";
+import styles from "../styles/artistPage.module.css";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
@@ -21,9 +24,7 @@ function ArtistPage(props) {
   const reqCodeCollectionRef = collection(db, "reqCodes");
   const route = useRouter();
 
-  //!Fetches COLLECTION matching user's uid
-  //if no collection found, then notification to add REQUEST CODE
-  //CREATE doc with reqCode field
+  //?Fetches COLLECTION matching user's uid
   const handleReqCode = async () => {
     if (user) {
       const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
@@ -34,8 +35,7 @@ function ArtistPage(props) {
     }
   };
 
-  //!Fetches all requests
-  //Need to update - Only fetch where Request's reqCode, matches user's reqCode
+  //?Fetches all requests
   const getRequests = async (reqCode) => {
     const q = query(requestsCollectionRef, where("reqCode", "==", reqCode));
     const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
@@ -45,8 +45,7 @@ function ArtistPage(props) {
     return onSnapShotUpdate;
   };
 
-  //!POST new reqCode
-
+  //?POST new reqCode
   async function submitReqCode(newReqCode) {
     const q = query(reqCodeCollectionRef);
     await addDoc(reqCodeCollectionRef, {
@@ -56,9 +55,14 @@ function ArtistPage(props) {
     setNewReqCode("");
   }
 
+  //?DELETE request
+  const deleteRequest = async (id) => {
+    const reqDoc = doc(db, "requests", id);
+    await deleteDoc(reqDoc);
+  };
+
   //?Calling GET on User authentication
 
-  //Get Req
   useEffect(() => {
     handleReqCode();
   }, [user]);
@@ -79,11 +83,14 @@ function ArtistPage(props) {
     }
 
     return (
-      <div>
-        <div id="artist-head">
-          <h1>{`Welcome back ${user.displayName}`}</h1>
+      <div className={styles.artistPage}>
+        <div className={styles.artistHead}>
+          <img src={user.photoURL} referrerPolicy="no-referrer"></img>
+          <h1
+            className={styles.requestCode}
+          >{`Welcome back ${user.displayName}`}</h1>
 
-          <h1 id="request-code">{`REQUEST CODE: ${code}`}</h1>
+          <h1 className={styles.requestCode}>{`REQUEST CODE: ${code}`}</h1>
           <input
             placeholder="Update Request Code"
             onChange={(e) => {
@@ -94,33 +101,38 @@ function ArtistPage(props) {
           <button onClick={() => submitReqCode(newReqCode)}>
             {"Submit New Request Code"}
           </button>
-
-          <img src={user.photoURL} referrerPolicy="no-referrer"></img>
         </div>
 
-        <div id="table">
+        <div className={styles.table}>
           <table>
             <tr>
-              <th>Song Title</th>
-              <th>Artist Name</th>
-              <th>User</th>
-              <th>Delete</th>
+              <th className={styles.tableHeader}>Song Title</th>
+              <th className={styles.tableHeader}>Artist Name</th>
+              <th className={styles.tableHeader}>User</th>
+              <th className={styles.tableHeader}>Delete</th>
             </tr>
             {requests.map((request) => {
               return (
                 <tr>
-                  <th>{request.title}</th>
-                  <th>{request.artist}</th>
-                  <th>{request.user}</th>
-                  <th>❌</th>
+                  <th className={styles.tableBody}>{request.title}</th>
+                  <th className={styles.tableBody}>{request.artist}</th>
+                  <th className={styles.tableBody}>{request.user}</th>
+                  <th
+                    className={styles.tableBody}
+                    onClick={() => {
+                      deleteRequest(request.id);
+                    }}
+                  >
+                    ❌
+                  </th>
                 </tr>
               );
             })}
           </table>
         </div>
 
-        <div id="delete-all-btn">
-          <button id="delete-all">DELETE ALL</button>
+        <div>
+          <button className={styles.deleteAllButton}>DELETE ALL</button>
         </div>
 
         <button
