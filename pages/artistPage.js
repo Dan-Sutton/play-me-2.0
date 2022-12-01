@@ -63,11 +63,6 @@ function ArtistPage(props) {
     getRequests();
   }, [user]);
 
-  //Destructure reqCode
-  useEffect(() => {
-    setNewReqCode(...reqCode);
-  }, [reqCode]);
-
   //
 
   if (loading) {
@@ -76,7 +71,7 @@ function ArtistPage(props) {
 
   if (!user) route.push("/auth/login");
 
-  if (user && !loading && newReqCode) {
+  if (user && !loading && reqCode) {
     //! Alert to set up Code
     // setTimeout(function () {
     //   if (reqCode.length === 0) {
@@ -86,13 +81,19 @@ function ArtistPage(props) {
     //     }
     //   }
     // }, 1000);
+    let code;
+    try {
+      code = reqCode[0].reqCode;
+    } catch (error) {
+      code = "No Request Code! Please create one.";
+    }
 
     return (
       <div>
         <div id="artist-head">
           <h1>{`Welcome back ${user.displayName}`}</h1>
 
-          <p id="request-code">{`REQUEST CODE: ${newReqCode.reqCode}`}</p>
+          <h1 id="request-code">{`REQUEST CODE: ${code}`}</h1>
 
           <img src={user.photoURL} referrerPolicy="no-referrer"></img>
         </div>

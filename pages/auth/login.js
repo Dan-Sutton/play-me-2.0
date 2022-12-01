@@ -41,6 +41,8 @@ function Login(props) {
     setTitle("");
     setartist("");
     setname("");
+
+    alert("Request sent!");
   };
 
   return (
