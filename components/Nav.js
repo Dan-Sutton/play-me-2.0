@@ -4,7 +4,7 @@ import Link from "next/link";
 function Nav(props) {
   return (
     <nav>
-      <Link href={"/"}>Logo</Link>
+      <Link href={"/"}>🥁LOGO🥁</Link>
       <ul>
         <Link href={"/auth/login"}>Artist Page</Link>
       </ul>
