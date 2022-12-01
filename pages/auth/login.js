@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../utils/firebase";
+import styles from "../../styles/login.module.css";
 
 function Login(props) {
   const [requestCode, setrequestCode] = useState();
@@ -46,13 +47,13 @@ function Login(props) {
   };
 
   return (
-    <div>
-      <h1 id="playme-title">Play Me!</h1>
+    <div className={styles.loginPage}>
+      <h1 className={styles.playMeTitle}>Play Me!</h1>
 
-      <div class="user-input">
+      <div className={styles.userInput}>
         <input
           type="number"
-          id="request-code"
+          className={styles.input}
           placeholder="REQUEST CODE"
           required
           onChange={(e) => setrequestCode(e.target.value)}
@@ -60,7 +61,7 @@ function Login(props) {
         />
         <input
           type="text"
-          id="song-title"
+          className={styles.input}
           placeholder="SONG TITLE"
           required
           onChange={(e) => setTitle(e.target.value)}
@@ -68,7 +69,7 @@ function Login(props) {
         />
         <input
           type="text"
-          id="artist-name"
+          className={styles.input}
           placeholder="ARTIST NAME"
           required
           onChange={(e) => setartist(e.target.value)}
@@ -76,22 +77,21 @@ function Login(props) {
         />
         <input
           type="text"
-          id="your-name"
+          className={styles.input}
           placeholder="YOUR NAME"
           onChange={(e) => setname(e.target.value)}
           value={name}
         />
+        <button className={styles.submit} onClick={submitRequest}>
+          SUBMIT
+        </button>
       </div>
 
-      <div id="submit-btn">
-        <button onClick={submitRequest}>SUBMIT</button>
-      </div>
-
-      <div class="login">
+      <div className={styles.login}>
         <button id="artist-login" onClick={GoogleLogin}>
           ARTIST LOGIN
         </button>
-        <a href="">Create New Account</a>
+        {/* <a href="">Create New Account</a> */}
       </div>
     </div>
   );

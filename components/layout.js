@@ -1,10 +1,13 @@
 import Nav from "./Nav";
 
-export default function Layout({ children }) {
+import React from "react";
+
+function Layout({ children }) {
   return (
-    <div className="mx-14">
-      <Nav />
+    <div>
       <main>{children}</main>
     </div>
   );
 }
+
+export default Layout;
