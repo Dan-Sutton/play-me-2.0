@@ -51,8 +51,9 @@ function ArtistPage(props) {
     const q = query(reqCodeCollectionRef);
     await addDoc(reqCodeCollectionRef, {
       userId: user.uid,
-      reqCode: newReqCode,
+      reqCode: parseInt(newReqCode),
     });
+    setNewReqCode("");
   }
 
   //?Calling GET on User authentication
@@ -88,6 +89,7 @@ function ArtistPage(props) {
             onChange={(e) => {
               setNewReqCode(e.target.value);
             }}
+            value={newReqCode}
           ></input>
           <button onClick={() => submitReqCode(newReqCode)}>
             {"Submit New Request Code"}
