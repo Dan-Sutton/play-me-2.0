@@ -36,8 +36,8 @@ function ArtistPage(props) {
 
   //!Fetches all requests
   //Need to update - Only fetch where Request's reqCode, matches user's reqCode
-  const getRequests = async () => {
-    const q = query(requestsCollectionRef, where("reqCode", "==", 12345678));
+  const getRequests = async (reqCode) => {
+    const q = query(requestsCollectionRef, where("reqCode", "==", reqCode));
     const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
       setRequests(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
@@ -60,10 +60,7 @@ function ArtistPage(props) {
   //Get Req
   useEffect(() => {
     handleReqCode();
-    getRequests();
   }, [user]);
-
-  //
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -72,20 +69,12 @@ function ArtistPage(props) {
   if (!user) route.push("/auth/login");
 
   if (user && !loading && reqCode) {
-    //! Alert to set up Code
-    // setTimeout(function () {
-    //   if (reqCode.length === 0) {
-    //     const newReqCode = prompt("You need to set up a Request Code!");
-    //     if (newReqCode != null) {
-    //       submitReqCode(newReqCode);
-    //     }
-    //   }
-    // }, 1000);
     let code;
     try {
       code = reqCode[0].reqCode;
+      getRequests(code);
     } catch (error) {
-      code = "No Request Code! Please create one.";
+      code = "...";
     }
 
     return (
@@ -94,6 +83,15 @@ function ArtistPage(props) {
           <h1>{`Welcome back ${user.displayName}`}</h1>
 
           <h1 id="request-code">{`REQUEST CODE: ${code}`}</h1>
+          <input
+            placeholder="Update Request Code"
+            onChange={(e) => {
+              setNewReqCode(e.target.value);
+            }}
+          ></input>
+          <button onClick={() => submitReqCode(newReqCode)}>
+            {"Submit New Request Code"}
+          </button>
 
           <img src={user.photoURL} referrerPolicy="no-referrer"></img>
         </div>
