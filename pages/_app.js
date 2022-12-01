@@ -7,7 +7,6 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Layout>
-      <Component {...pageProps} />
       <button
         onClick={() => {
           route.push("/auth/login");
@@ -15,6 +14,7 @@ function MyApp({ Component, pageProps }) {
       >
         Enter App
       </button>
+      <Component {...pageProps} />
     </Layout>
   );
 }

@@ -131,10 +131,6 @@ function ArtistPage(props) {
           </table>
         </div>
 
-        <div>
-          <button className={styles.deleteAllButton}>DELETE ALL</button>
-        </div>
-
         <button
           onClick={() => {
             auth.signOut();
