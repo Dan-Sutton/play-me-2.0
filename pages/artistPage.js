@@ -10,6 +10,7 @@ import {
   query,
   where,
   doc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import styles from "../styles/artistPage.module.css";
@@ -61,6 +62,16 @@ function ArtistPage(props) {
     await deleteDoc(reqDoc);
   };
 
+  //?UPDATE reqCode
+
+  const updateReqCode = async (newCode, id) => {
+    const reqDoc = doc(db, "reqCodes", id);
+    updateDoc(reqDoc, {
+      userId: user.uid,
+      reqCode: parseInt(newCode),
+    });
+  };
+
   //?Calling GET on User authentication
 
   useEffect(() => {
@@ -75,11 +86,40 @@ function ArtistPage(props) {
 
   if (user && !loading && reqCode) {
     let code;
+    let button;
     try {
       code = reqCode[0].reqCode;
       getRequests(code);
     } catch (error) {
-      code = "...";
+      code = "Please add a code!";
+    }
+
+    if (code === "Please add a code!") {
+      button = (
+        <button
+          onClick={() => {
+            submitReqCode(newReqCode);
+          }}
+        >
+          SUBMIT Request Code
+        </button>
+      );
+    } else {
+      button = reqCode.map((code) => {
+        return (
+          <button
+            onClick={() => {
+              try {
+                updateReqCode(newReqCode, code.id);
+              } catch {
+                submitReqCode(newReqCode);
+              }
+            }}
+          >
+            {"Submit New Request Code"}
+          </button>
+        );
+      });
     }
 
     return (
@@ -98,9 +138,7 @@ function ArtistPage(props) {
             }}
             value={newReqCode}
           ></input>
-          <button onClick={() => submitReqCode(newReqCode)}>
-            {"Submit New Request Code"}
-          </button>
+          {button}
         </div>
 
         <div className={styles.table}>
