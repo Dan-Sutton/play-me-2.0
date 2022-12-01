@@ -2,13 +2,21 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../utils/firebase";
+import { async } from "@firebase/util";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
   const [requests, setRequests] = useState([]);
   const [reqCode, setReqCode] = useState([]);
+  const [newReqCode, setNewReqCode] = useState([]);
 
   const requestsCollectionRef = collection(db, "requests");
   const reqCodeCollectionRef = collection(db, "reqCodes");
@@ -19,8 +27,7 @@ function ArtistPage(props) {
   //CREATE doc with reqCode field
   const handleReqCode = async () => {
     if (user) {
-      //   const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
-      const q = query(reqCodeCollectionRef, where("userId", "==", 3674928));
+      const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
       const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
         setReqCode(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       });
@@ -32,7 +39,6 @@ function ArtistPage(props) {
   //Need to update - Only fetch where Request's reqCode, matches user's reqCode
   const getRequests = async () => {
     const q = query(requestsCollectionRef, where("reqCode", "==", 12345678));
-
     const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
       setRequests(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
@@ -40,7 +46,22 @@ function ArtistPage(props) {
     return onSnapShotUpdate;
   };
 
+  //!POST new reqCode
+
+  async function submitReqCode(newReqCode) {
+    const q = query(reqCodeCollectionRef);
+    await addDoc(reqCodeCollectionRef, {
+      userId: user.uid,
+      reqCode: newReqCode,
+    });
+  }
+
   //?Calling GET on User authentication
+
+  useEffect(() => {
+    setNewReqCode(...reqCode);
+    console.log(...reqCode);
+  }, [reqCode]);
 
   useEffect(() => {
     handleReqCode();
@@ -52,23 +73,24 @@ function ArtistPage(props) {
   }
 
   if (!user || !reqCode) route.push("/auth/login");
-  if (user && !loading) {
-    setTimeout(function () {
-      if (reqCode.length === 0) {
-        const newReqCode = prompt("You need to set up a Request Code!");
-        if (newReqCode != null) {
-          console.log(newReqCode);
-        }
-      }
-    }, 1000);
+  if (user && !loading && newReqCode) {
+    console.log(newReqCode.reqCode);
+    //! Alert to set up Code
+    // setTimeout(function () {
+    //   if (reqCode.length === 0) {
+    //     const newReqCode = prompt("You need to set up a Request Code!");
+    //     if (newReqCode != null) {
+    //       submitReqCode(newReqCode);
+    //     }
+    //   }
+    // }, 1000);
 
     return (
       <div>
         <div id="artist-head">
           <h1>{`Welcome back ${user.displayName}`}</h1>
-          {reqCode.map((i) => (
-            <p id="request-code">{`REQUEST CODE: ${i.reqCode}`}</p>
-          ))}
+
+          <p id="request-code">{`REQUEST CODE: ${newReqCode.reqCode}`}</p>
 
           <img src={user.photoURL} referrerPolicy="no-referrer"></img>
         </div>
