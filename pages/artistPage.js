@@ -26,11 +26,13 @@ function ArtistPage(props) {
   //if no collection found, then notification to add REQUEST CODE
   //CREATE doc with reqCode field
   const handleReqCode = async () => {
-    const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
-    const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
-      setReqCode(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
-    return onSnapShotUpdate;
+    if (user) {
+      const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
+      const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
+        setReqCode(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      });
+      return onSnapShotUpdate;
+    }
   };
 
   //!Fetches all requests
