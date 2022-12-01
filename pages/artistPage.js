@@ -56,7 +56,7 @@ function ArtistPage(props) {
     return <h1>Loading...</h1>;
   }
 
-  if (!user) route.push("/auth/login");
+  if (!user || !reqCode) route.push("/auth/login");
   if (user) {
     return (
       <div>
