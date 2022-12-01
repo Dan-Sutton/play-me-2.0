@@ -16,18 +16,19 @@ function ArtistPage(props) {
         <div id="artist-head">
           <h1>{`Welcome back ${user.displayName}`}</h1>
           <p id="request-code">REQUEST CODE: 1234</p>
+          <img src={user.photoURL} referrerpolicy="no-referrer"></img>
         </div>
 
         <div id="table">
           <h2>Your Requests</h2>
-          <table>
+          {/* <table>
             <tr>
               <th>Song Title</th>
               <th>Artist Name</th>
               <th>User</th>
               <th>Delete</th>
             </tr>
-          </table>
+          </table> */}
         </div>
 
         <div id="delete-all-btn">
