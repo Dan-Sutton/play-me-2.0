@@ -10,7 +10,7 @@ function ArtistPage(props) {
   }
   const route = useRouter();
   if (!user) route.push("/auth/login");
-  if (user)
+  if (user) {
     return (
       <div>
         <div id="artist-head">
@@ -22,13 +22,13 @@ function ArtistPage(props) {
         <div id="table">
           <h2>Your Requests</h2>
           {/* <table>
-            <tr>
-              <th>Song Title</th>
-              <th>Artist Name</th>
-              <th>User</th>
-              <th>Delete</th>
-            </tr>
-          </table> */}
+          <tr>
+            <th>Song Title</th>
+            <th>Artist Name</th>
+            <th>User</th>
+            <th>Delete</th>
+          </tr>
+        </table> */}
         </div>
 
         <div id="delete-all-btn">
@@ -44,6 +44,7 @@ function ArtistPage(props) {
         </button>
       </div>
     );
+  }
 }
 
 export default ArtistPage;
