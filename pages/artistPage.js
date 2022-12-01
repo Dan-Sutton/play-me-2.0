@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
+  const route = useRouter();
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
-  const route = useRouter();
+
   if (!user) route.push("/auth/login");
   if (user) {
     return (
@@ -16,19 +18,16 @@ function ArtistPage(props) {
         <div id="artist-head">
           <h1>{`Welcome back ${user.displayName}`}</h1>
           <p id="request-code">REQUEST CODE: 1234</p>
-          <img src={user.photoURL} referrerpolicy="no-referrer"></img>
+          <img src={user.photoURL} referrerPolicy="no-referrer"></img>
         </div>
 
         <div id="table">
-          <h2>Your Requests</h2>
-          {/* <table>
           <tr>
             <th>Song Title</th>
             <th>Artist Name</th>
             <th>User</th>
             <th>Delete</th>
           </tr>
-        </table> */}
         </div>
 
         <div id="delete-all-btn">
