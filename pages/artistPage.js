@@ -130,7 +130,7 @@ function ArtistPage(props) {
       <div className={styles.artistPage}>
         <div className={styles.artistPageContent}>
           <div className={styles.artistHead}>
-            <Image src={logo} className={styles.logo}></Image>
+            <Image alt="playit" src={logo} className={styles.logo}></Image>
             <h2 className={styles.welcome}>{`Welcome back`}</h2>
 
             <div className={styles.nameAndImage}>
