@@ -28,15 +28,6 @@ function ArtistPage(props) {
   const route = useRouter();
 
   //?Fetches COLLECTION matching user's uid
-  const handleReqCode = async () => {
-    if (user) {
-      const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
-      const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
-        setReqCode(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      });
-      return onSnapShotUpdate;
-    }
-  };
 
   //?Fetches all requests
   const getRequests = async (reqCode) => {
@@ -50,7 +41,6 @@ function ArtistPage(props) {
 
   //?POST new reqCode
   async function submitReqCode(newReqCode) {
-    const q = query(reqCodeCollectionRef);
     await addDoc(reqCodeCollectionRef, {
       userId: user.uid,
       reqCode: parseInt(newReqCode),
@@ -77,6 +67,18 @@ function ArtistPage(props) {
   //?Calling GET on User authentication
 
   useEffect(() => {
+    const handleReqCode = async () => {
+      const reqCodeCollectionRef = collection(db, "reqCodes");
+      if (user) {
+        const q = query(reqCodeCollectionRef, where("userId", "==", user.uid));
+        const onSnapShotUpdate = onSnapshot(q, (snapShot) => {
+          setReqCode(
+            snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          );
+        });
+        return onSnapShotUpdate;
+      }
+    };
     handleReqCode();
   }, [user]);
 
@@ -111,6 +113,7 @@ function ArtistPage(props) {
       button = reqCode.map((code) => {
         return (
           <button
+            key={code}
             className={styles.submitButton}
             onClick={() => {
               try {
@@ -135,11 +138,13 @@ function ArtistPage(props) {
 
             <div className={styles.nameAndImage}>
               <h2 className={styles.userName}>{`${user.displayName}`}</h2>
-              <img
+              <Image
                 className={styles.userImage}
                 src={user.photoURL}
-                referrerPolicy="no-referrer"
-              ></img>
+                width={100}
+                height={100}
+                alt={"userImage"}
+              ></Image>
             </div>
 
             <h1 className={styles.requestCode}>{`REQUEST CODE: ${code}`}</h1>
@@ -159,15 +164,18 @@ function ArtistPage(props) {
 
           <div className={styles.table}>
             <table className={styles.tableClass}>
-              <tr>
-                <th className={styles.tableHeader}>Song Title</th>
-                <th className={styles.tableHeader}>Artist Name</th>
-                <th className={styles.tableHeader}>User</th>
-                <th className={styles.tableHeader}>Delete</th>
-              </tr>
+              <thead>
+                <tr>
+                  <th className={styles.tableHeader}>Song Title</th>
+                  <th className={styles.tableHeader}>Artist Name</th>
+                  <th className={styles.tableHeader}>User</th>
+                  <th className={styles.tableHeader}>Delete</th>
+                </tr>
+              </thead>
+
               {requests.map((request) => {
                 return (
-                  <tr>
+                  <tr key={request.id}>
                     <th className={styles.tableBody}>{request.title}</th>
                     <th className={styles.tableBody}>{request.artist}</th>
                     <th className={styles.tableBody}>{request.user}</th>

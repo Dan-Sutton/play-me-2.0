@@ -48,50 +48,52 @@ function Login(props) {
 
   return (
     <div className={styles.loginPage}>
-      <h1 className={styles.playMeTitle}>Play Me!</h1>
+      <div className={styles.loginPageContent}>
+        <h1 className={styles.playMeTitle}>Play Me!</h1>
 
-      <div className={styles.userInput}>
-        <input
-          type="number"
-          className={styles.input}
-          placeholder="REQUEST CODE"
-          required
-          onChange={(e) => setrequestCode(e.target.value)}
-          value={requestCode}
-        />
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="SONG TITLE"
-          required
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        />
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="ARTIST NAME"
-          required
-          onChange={(e) => setartist(e.target.value)}
-          value={artist}
-        />
-        <input
-          type="text"
-          className={styles.input}
-          placeholder="YOUR NAME"
-          onChange={(e) => setname(e.target.value)}
-          value={name}
-        />
-        <button className={styles.submit} onClick={submitRequest}>
-          SUBMIT
-        </button>
-      </div>
+        <div className={styles.userInput}>
+          <input
+            type="number"
+            className={styles.input}
+            placeholder="REQUEST CODE"
+            required
+            onChange={(e) => setrequestCode(e.target.value)}
+            value={requestCode}
+          />
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="SONG TITLE"
+            required
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="ARTIST NAME"
+            required
+            onChange={(e) => setartist(e.target.value)}
+            value={artist}
+          />
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="YOUR NAME"
+            onChange={(e) => setname(e.target.value)}
+            value={name}
+          />
+          <button className={styles.submit} onClick={submitRequest}>
+            SUBMIT
+          </button>
+        </div>
 
-      <div className={styles.login}>
-        <button id="artist-login" onClick={GoogleLogin}>
-          ARTIST LOGIN
-        </button>
-        {/* <a href="">Create New Account</a> */}
+        <div className={styles.login}>
+          <button id="artist-login" onClick={GoogleLogin}>
+            ARTIST LOGIN
+          </button>
+          {/* <a href="">Create New Account</a> */}
+        </div>
       </div>
     </div>
   );
