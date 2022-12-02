@@ -11,3 +11,7 @@
   --light-blue: #b8c1ec;
 }
 
+@font-face {
+  font-family: "Borsok";
+  src: url("../public/boorsok.ttf");
+}

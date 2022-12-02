@@ -97,17 +97,19 @@ function ArtistPage(props) {
     if (code === "Please add a code!") {
       button = (
         <button
+          className={styles.submitButton}
           onClick={() => {
             submitReqCode(newReqCode);
           }}
         >
-          SUBMIT Request Code
+          SUBMIT
         </button>
       );
     } else {
       button = reqCode.map((code) => {
         return (
           <button
+            className={styles.submitButton}
             onClick={() => {
               try {
                 updateReqCode(newReqCode, code.id);
@@ -116,7 +118,7 @@ function ArtistPage(props) {
               }
             }}
           >
-            {"Submit New Request Code"}
+            {"SUBMIT"}
           </button>
         );
       });
@@ -125,24 +127,36 @@ function ArtistPage(props) {
     return (
       <div className={styles.artistPage}>
         <div className={styles.artistHead}>
-          <img src={user.photoURL} referrerPolicy="no-referrer"></img>
-          <h1
-            className={styles.requestCode}
-          >{`Welcome back ${user.displayName}`}</h1>
+          <div className={styles.header}>
+            <h2 className={styles.welcome}>{`Welcome back`}</h2>
+
+            <div className={styles.nameAndImage}>
+              <h2 className={styles.userName}>{`${user.displayName}`}</h2>
+              <img
+                className={styles.userImage}
+                src={user.photoURL}
+                referrerPolicy="no-referrer"
+              ></img>
+            </div>
+          </div>
 
           <h1 className={styles.requestCode}>{`REQUEST CODE: ${code}`}</h1>
-          <input
-            placeholder="Update Request Code"
-            onChange={(e) => {
-              setNewReqCode(e.target.value);
-            }}
-            value={newReqCode}
-          ></input>
-          {button}
+
+          <div className={styles.updateReqDiv}>
+            <input
+              className={styles.reqUpdate}
+              placeholder="Update Request Code"
+              onChange={(e) => {
+                setNewReqCode(e.target.value);
+              }}
+              value={newReqCode}
+            ></input>
+            {button}
+          </div>
         </div>
 
         <div className={styles.table}>
-          <table>
+          <table className={styles.tableClass}>
             <tr>
               <th className={styles.tableHeader}>Song Title</th>
               <th className={styles.tableHeader}>Artist Name</th>
@@ -170,6 +184,7 @@ function ArtistPage(props) {
         </div>
 
         <button
+        className={styles.signOut}
           onClick={() => {
             auth.signOut();
           }}
