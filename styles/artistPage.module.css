@@ -18,11 +18,13 @@
 .artistHead {
   display: grid;
   justify-items: center;
+  align-items: center;
 }
 
 .requestCode {
   color: var(--white);
-  font-size: 3vw;
+
+  font-size: 100%;
 }
 
 .updateReqDiv {
@@ -77,26 +79,35 @@
 
 .userImage {
   border-radius: 50%;
-  width: 20%;
+  width: min(20%, 200px);
 }
 
 .welcome {
   color: var(--white);
-  font-size: 6vw;
+  font-size: min(410%, 150px);
   font-family: "Borsok", sans-serif;
+  line-height: 90%;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .userName {
   color: var(--white);
-  font-size: 4vw;
+  font-size: min(250%, 300px);
   font-family: "Borsok", sans-serif;
+  line-height: 90%;
+  text-align: center;
+  margin-bottom: 5%;
+  padding-top: 4%;
 }
 
 .nameAndImage {
   display: flex;
+  /* flex-wrap: wrap; */
   align-items: center;
   justify-content: space-between;
-  margin: 0 8% 0 8%;
+  width: 70%;
 }
 
 .signOut {
@@ -107,5 +118,5 @@
 }
 
 .logo {
-  width: 20%;
+  width: min(40%, 800px);
 }
