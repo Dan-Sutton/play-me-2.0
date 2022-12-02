@@ -1,12 +1,18 @@
 .artistPage {
   background-color: var(--background-color);
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 2;
   position: absolute;
   top: 0;
+}
+
+.artistPageContent {
+  border: 2px solid black;
+  width: min(90%, 800px);
 }
 
 .artistHead {
@@ -47,7 +53,7 @@
 }
 
 .tableClass {
-  width: 100vw;
+  width: 100%;
 }
 
 .tableHeader {

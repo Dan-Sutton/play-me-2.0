@@ -128,70 +128,72 @@ function ArtistPage(props) {
 
     return (
       <div className={styles.artistPage}>
-        <div className={styles.artistHead}>
-          <Image src={logo} className={styles.logo}></Image>
-          <h2 className={styles.welcome}>{`Welcome back`}</h2>
+        <div className={styles.artistPageContent}>
+          <div className={styles.artistHead}>
+            <Image src={logo} className={styles.logo}></Image>
+            <h2 className={styles.welcome}>{`Welcome back`}</h2>
 
-          <div className={styles.nameAndImage}>
-            <h2 className={styles.userName}>{`${user.displayName}`}</h2>
-            <img
-              className={styles.userImage}
-              src={user.photoURL}
-              referrerPolicy="no-referrer"
-            ></img>
+            <div className={styles.nameAndImage}>
+              <h2 className={styles.userName}>{`${user.displayName}`}</h2>
+              <img
+                className={styles.userImage}
+                src={user.photoURL}
+                referrerPolicy="no-referrer"
+              ></img>
+            </div>
+
+            <h1 className={styles.requestCode}>{`REQUEST CODE: ${code}`}</h1>
+
+            <div className={styles.updateReqDiv}>
+              <input
+                className={styles.reqUpdate}
+                placeholder="Update Request Code"
+                onChange={(e) => {
+                  setNewReqCode(e.target.value);
+                }}
+                value={newReqCode}
+              ></input>
+              {button}
+            </div>
           </div>
 
-          <h1 className={styles.requestCode}>{`REQUEST CODE: ${code}`}</h1>
-
-          <div className={styles.updateReqDiv}>
-            <input
-              className={styles.reqUpdate}
-              placeholder="Update Request Code"
-              onChange={(e) => {
-                setNewReqCode(e.target.value);
-              }}
-              value={newReqCode}
-            ></input>
-            {button}
+          <div className={styles.table}>
+            <table className={styles.tableClass}>
+              <tr>
+                <th className={styles.tableHeader}>Song Title</th>
+                <th className={styles.tableHeader}>Artist Name</th>
+                <th className={styles.tableHeader}>User</th>
+                <th className={styles.tableHeader}>Delete</th>
+              </tr>
+              {requests.map((request) => {
+                return (
+                  <tr>
+                    <th className={styles.tableBody}>{request.title}</th>
+                    <th className={styles.tableBody}>{request.artist}</th>
+                    <th className={styles.tableBody}>{request.user}</th>
+                    <th
+                      className={styles.tableBody}
+                      onClick={() => {
+                        deleteRequest(request.id);
+                      }}
+                    >
+                      ❌
+                    </th>
+                  </tr>
+                );
+              })}
+            </table>
           </div>
-        </div>
 
-        <div className={styles.table}>
-          <table className={styles.tableClass}>
-            <tr>
-              <th className={styles.tableHeader}>Song Title</th>
-              <th className={styles.tableHeader}>Artist Name</th>
-              <th className={styles.tableHeader}>User</th>
-              <th className={styles.tableHeader}>Delete</th>
-            </tr>
-            {requests.map((request) => {
-              return (
-                <tr>
-                  <th className={styles.tableBody}>{request.title}</th>
-                  <th className={styles.tableBody}>{request.artist}</th>
-                  <th className={styles.tableBody}>{request.user}</th>
-                  <th
-                    className={styles.tableBody}
-                    onClick={() => {
-                      deleteRequest(request.id);
-                    }}
-                  >
-                    ❌
-                  </th>
-                </tr>
-              );
-            })}
-          </table>
+          <button
+            className={styles.signOut}
+            onClick={() => {
+              auth.signOut();
+            }}
+          >
+            Sign Out
+          </button>
         </div>
-
-        <button
-          className={styles.signOut}
-          onClick={() => {
-            auth.signOut();
-          }}
-        >
-          Sign Out
-        </button>
       </div>
     );
   }
