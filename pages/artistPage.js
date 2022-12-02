@@ -172,7 +172,7 @@ function ArtistPage(props) {
                     <th className={styles.tableBody}>{request.artist}</th>
                     <th className={styles.tableBody}>{request.user}</th>
                     <th
-                      className={styles.tableBody}
+                      className={styles.deleteButton}
                       onClick={() => {
                         deleteRequest(request.id);
                       }}

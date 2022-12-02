@@ -1,6 +1,6 @@
 .artistPage {
   background-color: var(--background-color);
-  height: 100vh;
+  height: 120vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -10,10 +10,11 @@
   top: 0;
 }
 
-.artistPageContent {
+/* .artistPageContent {
   border: 2px solid black;
   width: min(90%, 800px);
-}
+  height: 100vh;
+} */
 
 .artistHead {
   display: grid;
@@ -64,17 +65,24 @@
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   background-color: var(--pink);
-  font-size: 2vw;
+  font-size: 120%;
   border: 5px solid var(--background-color);
 }
 
-.tableBody {
+.tableBody,
+.deleteButton {
   text-align: center;
   color: var(--background-color);
   font-family: "Poppins", sans-serif;
+  font-weight: 300;
+
   background-color: var(--white);
-  font-size: 2vw;
+  font-size: 80%;
   border: 5px solid var(--background-color);
+}
+
+.deleteButton {
+  font-size: 150%;
 }
 
 .userImage {
@@ -84,7 +92,7 @@
 
 .welcome {
   color: var(--white);
-  font-size: min(410%, 150px);
+  font-size: min(320%, 150px);
   font-family: "Borsok", sans-serif;
   line-height: 90%;
   text-align: center;
