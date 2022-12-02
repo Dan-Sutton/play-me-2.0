@@ -69,11 +69,6 @@
   border: 5px solid var(--background-color);
 }
 
-.header {
-  width: 100%;
-  height: 30vh;
-}
-
 .userImage {
   border-radius: 50%;
   width: 20%;
@@ -103,4 +98,8 @@
   margin-top: 5vw;
   border-radius: 25px;
   font-size: 3vw;
+}
+
+.logo {
+  width: 20%;
 }

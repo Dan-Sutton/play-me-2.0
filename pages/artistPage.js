@@ -14,6 +14,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import styles from "../styles/artistPage.module.css";
+import logo from "../public/playmelogo.png";
+import Image from "next/image";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
@@ -127,17 +129,16 @@ function ArtistPage(props) {
     return (
       <div className={styles.artistPage}>
         <div className={styles.artistHead}>
-          <div className={styles.header}>
-            <h2 className={styles.welcome}>{`Welcome back`}</h2>
+          <Image src={logo} className={styles.logo}></Image>
+          <h2 className={styles.welcome}>{`Welcome back`}</h2>
 
-            <div className={styles.nameAndImage}>
-              <h2 className={styles.userName}>{`${user.displayName}`}</h2>
-              <img
-                className={styles.userImage}
-                src={user.photoURL}
-                referrerPolicy="no-referrer"
-              ></img>
-            </div>
+          <div className={styles.nameAndImage}>
+            <h2 className={styles.userName}>{`${user.displayName}`}</h2>
+            <img
+              className={styles.userImage}
+              src={user.photoURL}
+              referrerPolicy="no-referrer"
+            ></img>
           </div>
 
           <h1 className={styles.requestCode}>{`REQUEST CODE: ${code}`}</h1>
@@ -184,7 +185,7 @@ function ArtistPage(props) {
         </div>
 
         <button
-        className={styles.signOut}
+          className={styles.signOut}
           onClick={() => {
             auth.signOut();
           }}
