@@ -16,4 +16,6 @@
   src: url("../public/boorsok.ttf");
 }
 
-
+html {
+  background-color: var(--background-color);
+}

@@ -1,6 +1,6 @@
 .artistPage {
   background-color: var(--background-color);
-  height: 120vh;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -9,8 +9,8 @@
   position: absolute;
   top: 0;
 }
-
-/* .artistPageContent {
+/* 
+.artistPageContent {
   border: 2px solid black;
   width: min(90%, 800px);
   height: 100vh;
@@ -24,30 +24,38 @@
 
 .requestCode {
   color: var(--white);
-
-  font-size: 100%;
+  font-size: 80%;
+  height: 100%;
 }
 
 .updateReqDiv {
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  width: 30vw;
+  margin-top: 6%;
+  margin-bottom: 2%;
+  width: min(70%, 350px);
+
+  height: 6vh;
   display: flex;
   justify-content: space-between;
 }
 
 .reqUpdate {
+  display: flex;
+  flex-wrap: wrap;
   border-radius: 25px;
-  width: 20vw;
-  height: 3vw;
+  width: 60%;
+  height: 100%;
   text-align: center;
+  font-size: 80%;
 }
 
 .submitButton {
   background-color: var(--red);
-  height: 3vw;
-  width: 8vw;
   border-radius: 25px;
+  width: 30%;
+  height: 100%;
+  text-align: center;
+  font-size: 80%;
+  font-weight: 600;
 }
 
 .table {
