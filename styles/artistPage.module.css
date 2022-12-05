@@ -96,6 +96,7 @@
 .deleteButton {
   font-size: 150%;
   justify-content: center;
+  cursor: pointer;
 }
 
 .userImage {

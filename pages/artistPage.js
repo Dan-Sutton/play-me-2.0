@@ -17,6 +17,7 @@ import styles from "../styles/artistPage.module.css";
 import logo from "../public/playmelogo.png";
 import Image from "next/image";
 import loadingIcon from "../public/loadingIcon.jpeg";
+import Swal from "sweetalert2";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
@@ -48,6 +49,12 @@ function ArtistPage(props) {
       reqCode: parseInt(newReqCode),
     });
     setNewReqCode("");
+    Swal.fire({
+      position: "top",
+      title: "Your request code has been updated!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 
   //?DELETE request
@@ -55,6 +62,12 @@ function ArtistPage(props) {
     const reqDoc = doc(db, "requests", id);
     await deleteDoc(reqDoc);
     setDeleteLoad(false, null);
+    Swal.fire({
+      position: "top",
+      title: "Request deleted",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   //?UPDATE reqCode
@@ -64,6 +77,13 @@ function ArtistPage(props) {
     updateDoc(reqDoc, {
       userId: user.uid,
       reqCode: parseInt(newCode),
+    });
+
+    Swal.fire({
+      position: "top",
+      title: "Your request code has been updated!",
+      showConfirmButton: false,
+      timer: 1500,
     });
   };
 
