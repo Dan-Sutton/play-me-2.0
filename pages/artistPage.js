@@ -23,7 +23,7 @@ function ArtistPage(props) {
   const [requests, setRequests] = useState([]);
   const [reqCode, setReqCode] = useState([]);
   const [newReqCode, setNewReqCode] = useState([]);
-  const [deleteLoad, setDeleteLoad] = useState(false);
+  const [deleteLoad, setDeleteLoad] = useState([false, null]);
 
   const requestsCollectionRef = collection(db, "requests");
   const reqCodeCollectionRef = collection(db, "reqCodes");
@@ -54,7 +54,7 @@ function ArtistPage(props) {
   const deleteRequest = async (id) => {
     const reqDoc = doc(db, "requests", id);
     await deleteDoc(reqDoc);
-    setDeleteLoad(false);
+    setDeleteLoad(false, null);
   };
 
   //?UPDATE reqCode
@@ -185,11 +185,11 @@ function ArtistPage(props) {
                     <th
                       className={styles.deleteButton}
                       onClick={() => {
-                        setDeleteLoad(true);
+                        setDeleteLoad([true, request.id]);
                         deleteRequest(request.id);
                       }}
                     >
-                      {deleteLoad ? (
+                      {deleteLoad[0] && deleteLoad[1] === request.id ? (
                         <Image
                           src={loadingIcon}
                           className={styles.loadingIcon}
