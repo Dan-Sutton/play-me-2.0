@@ -16,12 +16,14 @@ import { db } from "../utils/firebase";
 import styles from "../styles/artistPage.module.css";
 import logo from "../public/playmelogo.png";
 import Image from "next/image";
+import loadingIcon from "../public/loadingIcon.jpeg";
 
 function ArtistPage(props) {
   const [user, loading] = useAuthState(auth);
   const [requests, setRequests] = useState([]);
   const [reqCode, setReqCode] = useState([]);
   const [newReqCode, setNewReqCode] = useState([]);
+  const [deleteLoad, setDeleteLoad] = useState(false);
 
   const requestsCollectionRef = collection(db, "requests");
   const reqCodeCollectionRef = collection(db, "reqCodes");
@@ -52,6 +54,7 @@ function ArtistPage(props) {
   const deleteRequest = async (id) => {
     const reqDoc = doc(db, "requests", id);
     await deleteDoc(reqDoc);
+    setDeleteLoad(false);
   };
 
   //?UPDATE reqCode
@@ -182,10 +185,18 @@ function ArtistPage(props) {
                     <th
                       className={styles.deleteButton}
                       onClick={() => {
+                        setDeleteLoad(true);
                         deleteRequest(request.id);
                       }}
                     >
-                      ❌
+                      {deleteLoad ? (
+                        <Image
+                          src={loadingIcon}
+                          className={styles.loadingIcon}
+                        ></Image>
+                      ) : (
+                        "❌"
+                      )}
                     </th>
                   </tr>
                 );

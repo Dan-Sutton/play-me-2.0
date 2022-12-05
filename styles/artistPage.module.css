@@ -95,6 +95,7 @@
 
 .deleteButton {
   font-size: 150%;
+  justify-content: center;
 }
 
 .userImage {
@@ -143,4 +144,10 @@
 
 .logo {
   width: min(40%, 800px);
+}
+
+.loadingIcon {
+  height: 35px;
+  width: 35px;
+  margin-left: 16%;
 }
