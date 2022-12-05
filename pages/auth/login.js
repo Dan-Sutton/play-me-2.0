@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import styles from "../../styles/login.module.css";
+import Swal from "sweetalert2";
 
 function Login(props) {
   const [requestCode, setrequestCode] = useState();
@@ -43,7 +44,12 @@ function Login(props) {
     setartist("");
     setname("");
 
-    alert("Request sent!");
+    Swal.fire({
+      position: "top",
+      title: "Request sent! 🙌",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
