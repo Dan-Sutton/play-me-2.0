@@ -211,6 +211,7 @@ function ArtistPage(props) {
                     >
                       {deleteLoad[0] && deleteLoad[1] === request.id ? (
                         <Image
+                          alt="loading circle"
                           src={loadingIcon}
                           className={styles.loadingIcon}
                         ></Image>
