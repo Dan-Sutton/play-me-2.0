@@ -16,7 +16,7 @@ import { db } from "../utils/firebase";
 import styles from "../styles/artistPage.module.css";
 import logo from "../public/playmelogo.png";
 import Image from "next/image";
-import loadingIcon from "../public/loadingIcon.jpeg";
+import loadingIcon from "../public/loadingicon.jpeg";
 import Swal from "sweetalert2";
 
 function ArtistPage(props) {
