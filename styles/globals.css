@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background-color: #232946;
+  --background-color: #232a47;
   --white: #fffffe;
   --pink: #eebbc3;
   --yellow: #f1e510;
@@ -19,5 +19,34 @@
 html {
   background-color: var(--background-color);
 }
+.apphomecontainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 
+.welcomeimagecontainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
+.welcomeimage {
+  height: auto;
+  width: max(23vw, 270px);
+}
+
+.enterbutton {
+  color: var(--background-color);
+  background-color: var(--red);
+  border-radius: 25px;
+  width: max(18vw, 200px);
+  height: 6vh;
+  text-align: center;
+  font-size: 115%;
+  font-weight: 600;
+  margin-top: -40px;
+}

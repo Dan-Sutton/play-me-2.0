@@ -12,6 +12,7 @@ import {
 import { db } from "../../utils/firebase";
 import styles from "../../styles/login.module.css";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 function Login(props) {
   const [requestCode, setrequestCode] = useState();
@@ -94,11 +95,18 @@ function Login(props) {
           </button>
         </div>
 
-        <div className={styles.login}>
-          <button id="artist-login" onClick={GoogleLogin}>
-            ARTIST LOGIN
-          </button>
-          {/* <a href="">Create New Account</a> */}
+        <div className={styles.loginandhome}>
+          <div className={styles.login}>
+            <button id="artist-login" onClick={GoogleLogin}>
+              ARTIST LOGIN
+            </button>
+            {/* <a href="">Create New Account</a> */}
+          </div>
+
+          <div className={styles.homepage}>
+            <Link href={"/"}>HOME PAGE</Link>
+            {/* <a href="">Create New Account</a> */}
+          </div>
         </div>
       </div>
     </div>
