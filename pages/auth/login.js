@@ -56,7 +56,7 @@ function Login(props) {
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginPageContent}>
-        <h1 className={styles.playMeTitle}>Play Me!</h1>
+        <h1 className={styles.playMeTitle}>Play That!</h1>
 
         <div className={styles.userInput}>
           <input
